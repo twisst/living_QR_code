@@ -1,27 +1,6 @@
-/*
-  Generates a 29x29-squares QR code where a posterized video (with some extra noise) is shown in between the necessary squares.
- Each square of this QR code consists of 3x3 smaller squares. Only the middle one is needs to stay the same for the QR code to work.
- 
- Also based on Mirror 2 by Daniel Shiffman, where pixels from the video source is drawn as a rectangle with size based on brightness.
- 
- */
 
-/*
- The base QR code pattern is stored in a PNG file called blank_qr_code.png.
- The pixels in that image tell this script which squares should appear larger (without those the QR code would not scan correctly).
- 
- The actual data for the QR is created using an online service. Goqr.me will let you output QR codes as vector images,
- which you can then convert to a 29x29-pixel PNG file. When downloading, set border to 0, leave everything as-is, then click on Download as SVG.
- 
- // should be VERSION 3 (29x29)! that means in Goqr.me, you have to have at least 33 characters. if necessary, pad an url with spaces.
- 
- Using Inkscape: open an SVG from goqr.me, File > Export, set width and height both to 29 under the Document tab,
- set the filetype to PNG at the bottom there, choose a name and set the destination folder to the data folder for this script and click 'Export').
- You may need to uncheck 'Hide Export Settings' and set 'antialias' to 0 in the export settings window that pops up.
- This variable holds its filename:
- */
-
-String data_image_filename = "qrcode_processing.png"; // learn processing on YouTube
+// This variable holds the filename of the base QR code:
+String data_image_filename = "qrcode_processing.png"; // QR code that leads to The Coding Train on YouTube
 
 boolean showVideo = true;
 boolean showNoise = true;

@@ -3,7 +3,7 @@
 String data_image_filename = "qrcode_processing.png"; // QR code that leads to The Coding Train on YouTube
 
 boolean showVideo = true;
-boolean showNoise = true;
+boolean showNoise = false;
 boolean showDither = true;
 boolean showFullQR = false;
 
@@ -198,19 +198,19 @@ void draw() {
         } else {
           // otherwise, this is one of the smaller squares
 
+          if (showNoise) {
+            // random dots (with Perlin noise)
+            xoff = xoff + .1;
+            fill(round(noise(xoff))*255);
+            square(x + int(random(0, 3))*subsquareSize, y + int(random(0, 3))*subsquareSize, subsquareSize);
+          }
+
           // the data parts of the QR code only have to be 1/12th of the larger squares to still be scan-able.
           fill(data[loc]);
           if (!showFullQR) {
             square(x+subsquareSize, y+subsquareSize, subsquareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
           } else {
             square(x, y, squareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
-          }
-
-          if (showNoise) {
-            // random dots (with Perlin noise)
-            xoff = xoff + .1;
-            fill(round(noise(xoff))*255);
-            square(x + int(random(0, 3))*subsquareSize, y + int(random(0, 3))*subsquareSize, subsquareSize);
           }
           
         }

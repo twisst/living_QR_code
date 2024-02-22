@@ -1,16 +1,16 @@
 # Living QR code
 A QR code that appears to be entirely composed of your webcam video — and yet remains scannable!
 
-![Aldo demonstrating the living QR code](https://github.com/twisst/living_QR_code/tree/main/data/livingQR_Aldo.gif "Living QR Aldo")
+![Aldo demonstrating the living QR code](data/livingQR_Aldo.gif?raw=true "Living QR Aldo")
 
 This Processing script shows a 29x29-squares QR code where a video is shown in between the necessary squares.
 
 This works because the squares that make up the QR code actually consist of 3x3 smaller squares. Only the middle one is needed for the QR code to work.
 
-![Living QR code at Raspberry Pi Jam The Hague](https://github.com/twisst/living_QR_code/tree/main/data/Jaap-foto-Aldo.jpg "Living QR on a Pi 5")
-
 
 ## Making the base QR code
+
+<img src="data/Jaap-foto-Aldo.jpg?raw=true" alt="Living QR code at Raspberry Pi Jam The Hague" title="Living QR on a Pi 5" width="460" align="right">
 
 The base QR code pattern is stored in a PNG file called blank_qr_code.png.
 The pixels in that image tell this script which squares should appear larger (without those the QR code would not scan correctly).

@@ -1,4 +1,3 @@
-
 /*
   Generates a 29x29-squares QR code where a posterized video (with some extra noise) is shown in between the necessary squares.
  Each square of this QR code consists of 3x3 smaller squares. Only the middle one is needs to stay the same for the QR code to work.
@@ -26,6 +25,7 @@ String data_image_filename = "qrcode_processing.png"; // learn processing on You
 
 boolean showVideo = true;
 boolean showNoise = true;
+boolean showDither = true;
 boolean showFullQR = false;
 
 import processing.video.*;
@@ -76,7 +76,7 @@ void setup() {
 
   surface.setLocation(0, 0);
   d = new Dither();
-  d.setCanvas(400, 400);
+  d.setCanvas(87,87);
 
   colorMode(RGB, 255, 255, 255, 100);
   rectMode(CORNER);
@@ -143,11 +143,12 @@ void draw() {
 
     frame.resize(87, 87);
 
-    //d.feed(frame);
+    if (showDither) {
+      d.feed(frame);
+      frame = d.floyd_steinberg();
+    }
 
-    //p = d.floyd_steinberg();
 
-    //image(p, 0, 0);
 
 
     image(frame, 0, 0);
@@ -250,5 +251,7 @@ void keyPressed() {
   } else if (key == '3') {
     showFullQR = !showFullQR;
     if (showFullQR == true) { showVideo = false; }
+  } else if (key == '4') {
+    showDither = !showDither;
   }
 }

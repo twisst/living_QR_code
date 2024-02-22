@@ -10,10 +10,10 @@ This works because the squares that make up the QR code actually consist of 3x3 
 
 ## Making the base QR code
 
-<img src="data/Jaap-foto-Aldo.jpg?raw=true" alt="Living QR code at Raspberry Pi Jam The Hague" title="Living QR on a Pi 5" width="460" align="right">
-
 The base QR code pattern is stored in a PNG file called blank_qr_code.png.
 The pixels in that image tell this script which squares should appear larger (without those the QR code would not scan correctly).
+
+<img src="data/Jaap-foto-Aldo.jpg?raw=true" alt="Living QR code at Raspberry Pi Jam The Hague" title="Living QR on a Pi 5" width="450" align="right">
 
 The actual data for the QR is created using an online service. There are several that will let you create QR codes for free. [Goqr.me](https://goqr.me/) will let you output QR codes as vector images, which you can then convert to a tiny PNG file. 
 
@@ -26,7 +26,7 @@ You may need to uncheck 'Hide Export Settings' and set 'antialias' to 0 in the e
 
 ## Thanks
 
-I based the script on [Mirror 2](https://github.com/processing/processing-video/tree/main/examples/Capture/Mirror2) by Daniel Shiffman, where pixels from the video source are drawn as rectangles with a size based on their brightness. (See Dan's [tutorial on live video](https://processing.org/tutorials/video)).
+I based the script on [Mirror 2](https://github.com/processing/processing-video/tree/main/examples/Capture/Mirror2) by Daniel Shiffman, where pixels from the video source are drawn as rectangles with a size based on their brightness. (See Dan's [tutorial on live video](https://processing.org/tutorials/video).)
 
 The dithering is handled by Julian Hespenheide's [dithering class for Processing](https://github.com/ndsh/dither).
 

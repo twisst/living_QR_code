@@ -28,8 +28,6 @@ PImage p;
 PFont f;
 PImage arrow;
 
-float xoff = 0.0;
-
 float avgBrightness = 120;
 
 
@@ -53,7 +51,7 @@ void setup() {
 
   fullScreen(2); // use second screen if available
 
-  surface.setLocation(0, 0);
+  //surface.setLocation(0, 0);
   d = new Dither();
   d.setCanvas(87,87);
 
@@ -98,7 +96,7 @@ void draw() {
 
   translate(200, 100);
 
-  scale(1.7); // 2 for large screen, 1.4 for smaller one; TODO: autodetect resolution
+  scale(1.8); // 2 for large screen, 1.4 for smaller one; TODO: autodetect resolution
 
   // Text with an arrow
   fill(0);
@@ -169,18 +167,17 @@ void draw() {
 
           if (showNoise) {
             // random dots
-            xoff = xoff + .1;
             fill(round(random(1))*255); // black or white
             // choose one random square to fill (might be the center one, but that will be overwritten below)
             square(x + int(random(0, 3))*subsquareSize, y + int(random(0, 3))*subsquareSize, subsquareSize);  
           }
 
-          // the data parts of the QR code only have to be 1/12th of the larger squares to still be scan-able.
           fill(data[loc]);
           if (!showFullQR) {
-            square(x+subsquareSize, y+subsquareSize, subsquareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
+            // the data parts of the QR code only have to be 1/12th of the larger squares to still be scan-able.
+              square(x+subsquareSize, y+subsquareSize, subsquareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
           } else {
-            square(x, y, squareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
+            square(x, y, squareSize); // no margins, just show the full square
           }
           
         }
@@ -196,10 +193,8 @@ void keyPressed() {  // 1 toggle video, 2 toggle noise, 3 toggle full QR code, 4
     showNoise = !showNoise;
   } else if (key == '3') {
     showFullQR = !showFullQR;
-    if (showFullQR == true) { showVideo = false; }
   } else if (key == '4') {
-    mode = (mode + 1 ) % 5;      // 0 floyd_steinberg, 1 bayer, 2 atkinson, 3 rand, 4 no dithering
-    if ( mode == 2 ) { mode++; } // ignore atkinson, doesn't seem to work
-    if (mode == 4) { showDither = false; } else { showDither = true; } // last option is turn dithering off
+    mode = (mode + 1 ) % 5;      // 0 floyd_steinberg, 1 bayer, 2 atkinson, 3 random, 4 no dithering
+    if (mode == 4) { showDither = false; } else { showDither = true; showVideo = true; } // last option is turn dithering off
   }
 }

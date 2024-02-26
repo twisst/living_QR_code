@@ -152,7 +152,7 @@ class Dither {
     // Init canvas
     //result.background(0,0,0);
     // Define step
-    int s = 4;
+    int s = 1;
     
     // Scan image
     temp.loadPixels();

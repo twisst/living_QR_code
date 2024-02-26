@@ -10,7 +10,11 @@ boolean showFullQR = false;
 import processing.video.*;
 
 // Size of each cell in the grid
-int squareSize = 15;                // this should be a multiple of 3 so it is neatly dividble into 3x3 sub-squares.
+int squareSize = 24;                // This should be a multiple of 3 so it is neatly dividble into 3x3 sub-squares.
+                                    // Since this number is the basis for the rest of the dimensions, it determines the scale of the QR code.
+                                    // We should use this instead of scale(), because that function gives rational pixel numbers and that 
+                                    // creates unwanted white lines between squares.
+                                    
 int subsquareSize = squareSize / 3; // QR code is 29x29 squares which we divide into 9 sub-squares (because a QR code only needs the middle one to be scannable).
 int totalQRsize = squareSize * 29;  // length of the sides of the whole QR code, for use in translate()
 
@@ -95,8 +99,6 @@ void draw() {
   background(255);
 
   translate(200, 100);
-
-  scale(1.7); // 2 for large screen, 1.4 for smaller one; TODO: autodetect resolution
 
   // Text with an arrow
   fill(0);

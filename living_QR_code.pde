@@ -96,7 +96,7 @@ void draw() {
 
   translate(200, 100);
 
-  scale(1.8); // 2 for large screen, 1.4 for smaller one; TODO: autodetect resolution
+  scale(1.7); // 2 for large screen, 1.4 for smaller one; TODO: autodetect resolution
 
   // Text with an arrow
   fill(0);

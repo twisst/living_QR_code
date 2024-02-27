@@ -2,24 +2,20 @@
 // This variable holds the filename of the base QR code:
 String data_image_filename = "qrcode_processing.png"; // QR code that leads to The Coding Train on YouTube
 
+import processing.video.*;
+
+Capture video;  // variable for capture device
+
 boolean showVideo = true;
 boolean showNoise = false;
 boolean showDither = true;
 boolean showFullQR = false;
 
-import processing.video.*;
-
-// Size of each cell in the grid
-int squareSize = 24;                // This should be a multiple of 3 so it is neatly dividble into 3x3 sub-squares.
-                                    // Since this number is the basis for the rest of the dimensions, it determines the scale of the QR code.
-                                    // We should use this instead of scale(), because that function gives rational pixel numbers and that 
-                                    // creates unwanted white lines between squares.
-                                    
-int subsquareSize = squareSize / 3; // QR code is 29x29 squares which we divide into 9 sub-squares (because a QR code only needs the middle one to be scannable).
-int totalQRsize = squareSize * 29;  // length of the sides of the whole QR code, for use in translate()
-
-// Variable for capture device
-Capture video;
+int squareSize;
+int subsquareSize;
+int totalQRsize = 0;
+float vmargin;
+float hmargin;
 
 // base pattern for 29x29 QR code (this indicates which parts should appear as large solid squares)
 int[] required = new int[841];
@@ -29,10 +25,8 @@ Dither d;
 int mode = 0;
 PImage p;
 
-PFont f;
+PFont f, s;
 PImage arrow;
-
-float avgBrightness = 120;
 
 
 // loading QR module colors from a PNG
@@ -54,10 +48,29 @@ int[] loadQRcode(String png) {
 void setup() {
 
   fullScreen(2); // use second screen if available
+  
+  // Size of each 'module' in the grid
+  squareSize = 3;      
+  // squareSize should be a multiple of 3 so it is neatly dividble into 3x3 sub-squares.
+  // Since this number is the basis for the rest of the dimensions, it determines the scale of the QR code.
+  // We should use this instead of scale(), because that function gives rational pixel numbers and that
+  // creates unwanted white lines between squares.
+  
+  // Now we know the value of width and height, so we can scale the QR code to the size of the screen.
+  // here we use 29 + 8 in order to have a margin around the QR code (the poetically named 'quiet zone')
+  while ( (squareSize+3) * 37 < height && (squareSize+3) * 37 < width ) {
+    squareSize += 3;
+  }
+  println("squareSize is ", squareSize);
+
+  totalQRsize = squareSize * 29;  // length of the sides of the whole QR code
+  subsquareSize = squareSize / 3; // we divide the modules of the QR code into 9 sub-squares that have sides 1/3 of the larger square.
+  vmargin = (height - totalQRsize) / 2;  // vertical margin
+  hmargin = (width - totalQRsize) / 2;   // horizontal margin
 
   //surface.setLocation(0, 0);
   d = new Dither();
-  d.setCanvas(87,87);
+  d.setCanvas(87, 87);
 
   colorMode(RGB, 255, 255, 255, 100);
   rectMode(CORNER);
@@ -65,7 +78,7 @@ void setup() {
   noCursor();
 
   // video input select
-  // the selected camera is the first one in the list (the built-in one), 
+  // the selected camera is the first one in the list (the built-in one),
   // unless the specified external camera is connected.
   String[] cameras = Capture.list();
   String cam = Capture.list()[0];
@@ -85,10 +98,11 @@ void setup() {
   required = loadQRcode("blank_qr_code.png");  // image with just the required squares, stored as 0 (black), 255 (white) or 128 (grey, modules not required).
   data = loadQRcode(data_image_filename);      // image with the working QR code, only black and white
 
-  // Create font
-  f = createFont("TrebuchetMS-Bold", 20);
+  // Create fonts
+  f = createFont("TrebuchetMS-Bold", 22);
   textFont(f);
-  textAlign(CENTER);
+  s = createFont("data/ka1.ttf", 28); // font: Karmatic arcade by Vic Fieger
+  textFont(s);
 
   arrow = loadImage("arrow.png");
 }
@@ -98,18 +112,21 @@ void draw() {
 
   background(255);
 
-  translate(200, 100);
+  translate(hmargin-50, vmargin);
 
   // Text with an arrow
   fill(0);
-  text("You are what\nyou scan.\nScan yourself!", totalQRsize + 110, 120);
-  image(arrow, totalQRsize + 20, 170, arrow.width/2, arrow.height/2);
+  textFont(s);
+  text("You\nare\nwhat\nyou\nscan.", totalQRsize * 1.1, totalQRsize * 0.05);
+  textFont(f);
+  text("Scan yourself!", totalQRsize * 1.1, totalQRsize * 0.7);
+  image(arrow, totalQRsize * 1.1, totalQRsize * 0.7, arrow.width/2, arrow.height/2);
 
 
   if (video.available()) {
-    
+
     // CAPTURE VIDEO
-    
+
     video.read();
 
     // Get a portion of the loaded image
@@ -123,9 +140,9 @@ void draw() {
 
     if (showDither) {   // dither the video
       d.feed(frame);
-      frame = d.dither(mode); 
+      frame = d.dither(mode);
     }
-    
+
     if (showVideo) {
       // Begin loop for rows
       for (int j = 0; j < 87; j++) {  // 87 because that's how many columns and rows of subsquares there are
@@ -155,13 +172,13 @@ void draw() {
       for (int col = 0; col < 29; col++) {
 
         // Where are we, pixel-wise?
-        int x = row * squareSize; // rows are 12px high,
-        int y = col * squareSize; // columns 12px wide.
+        int x = row * squareSize;
+        int y = col * squareSize;
 
         int loc = (row * 29) + col;
 
-        // if this square is required to be bigger, then give the the whole larger square the color of the base pattern.
         if (required[loc] != 128) {
+          // if this square is part of the required base pattern, it needs to be bigger.
           fill(color(required[loc]));
           square(x, y, squareSize);
         } else {
@@ -171,17 +188,16 @@ void draw() {
             // random dots
             fill(round(random(1))*255); // black or white
             // choose one random square to fill (might be the center one, but that will be overwritten below)
-            square(x + int(random(0, 3))*subsquareSize, y + int(random(0, 3))*subsquareSize, subsquareSize);  
+            square(x + int(random(0, 3))*subsquareSize, y + int(random(0, 3))*subsquareSize, subsquareSize);
           }
 
           fill(data[loc]);
           if (!showFullQR) {
             // the data parts of the QR code only have to be 1/12th of the larger squares to still be scan-able.
-              square(x+subsquareSize, y+subsquareSize, subsquareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
+            square(x+subsquareSize, y+subsquareSize, subsquareSize); // margins on both the x and y because this is the center square of the larger 9x9 grid
           } else {
             square(x, y, squareSize); // no margins, just show the full square
           }
-          
         }
       }
     }
@@ -189,7 +205,7 @@ void draw() {
 }
 
 void keyPressed() {  // 1 toggle video, 2 toggle noise, 3 toggle full QR code, 4 switch dithering modes
-  if (key == '1') { 
+  if (key == '1') {
     showVideo = !showVideo;
   } else if (key == '2') {
     showNoise = !showNoise;
@@ -197,6 +213,11 @@ void keyPressed() {  // 1 toggle video, 2 toggle noise, 3 toggle full QR code, 4
     showFullQR = !showFullQR;
   } else if (key == '4') {
     mode = (mode + 1 ) % 5;      // 0 floyd_steinberg, 1 bayer, 2 atkinson, 3 random, 4 no dithering
-    if (mode == 4) { showDither = false; } else { showDither = true; showVideo = true; } // last option is turn dithering off
+    if (mode == 4) {
+      showDither = false;
+    } else {
+      showDither = true;
+      showVideo = true;
+    } // last option is turn dithering off
   }
 }

@@ -17,6 +17,10 @@ int totalQRsize = 0;
 float vmargin;
 float hmargin;
 
+// set noiseLevel:
+// there will be a 1 in noiseLevel chance that an extra subsquare is drawn around the module center subsquare.
+int noiseLevel = 4;
+
 // base pattern for 29x29 QR code (this indicates which parts should appear as large solid squares)
 int[] required = new int[841];
 int[] data = new int[841]; // will hold the actual QR code
@@ -186,9 +190,11 @@ void draw() {
 
           if (showNoise) {
             // random dots
-            fill(round(random(1))*255); // black or white
-            // choose one random square to fill (might be the center one, but that will be overwritten below)
-            square(x + int(random(0, 3))*subsquareSize, y + int(random(0, 3))*subsquareSize, subsquareSize);
+            if (round(random(noiseLevel)) == 1) { // determines how often we draw an extra square
+              fill(round(random(1))*255); // black or white
+              // choose one random square to fill (might be the center one, but that will be overwritten below)
+              square(x + round(random(0, 2))*subsquareSize, y + round(random(0, 2))*subsquareSize, subsquareSize);
+            }
           }
 
           fill(data[loc]);
@@ -212,12 +218,12 @@ void keyPressed() {  // 1 toggle video, 2 toggle noise, 3 toggle full QR code, 4
   } else if (key == '3') {
     showFullQR = !showFullQR;
   } else if (key == '4') {
-    mode = (mode + 1 ) % 5;      // 0 floyd_steinberg, 1 bayer, 2 atkinson, 3 random, 4 no dithering
+    mode = (mode + 1 ) % 5;   // 0 floyd_steinberg, 1 bayer, 2 atkinson, 3 random, 4 no dithering
     if (mode == 4) {
-      showDither = false;
+      showDither = false;     // last option is turn dithering off
     } else {
       showDither = true;
       showVideo = true;
-    } // last option is turn dithering off
+    }
   }
 }

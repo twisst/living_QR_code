@@ -86,15 +86,19 @@ void setup() {
   // unless the specified external camera is connected.
   String[] cameras = Capture.list();
   String cam = Capture.list()[0];
-  String externalCamera = "Trust Webcam";
+  String internalCamera = "FaceTime-HD-camera";
   for (int i = 0; i < cameras.length; i++) {
-    if (Capture.list()[i].equals(externalCamera)) {
+    if ( Capture.list()[i].indexOf(internalCamera) == -1) {
+      // if there is an external camera connected, use that one.
       cam = Capture.list()[i];
     }
   }
   println("Using this camera: ", cam);
 
-  video = new Capture(this, 640, 360, cam, 30); // lowest possible resolution for 16:9 video
+  // previously the following command had to include the FPS after the camera to make 
+  // this work on a Macbook. Now it is the reverse, so I removed it again :-) 
+  // see https://github.com/processing/processing-video/issues/191
+  video = new Capture(this, 640, 360, cam); // lowest possible resolution for 16:9 video
   video.start();
 
   frameRate(4);

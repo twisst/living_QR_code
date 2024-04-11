@@ -24,6 +24,17 @@ Using [Inkscape](https://inkscape.org/): open the SVG, File > Export, set width 
 You may need to uncheck 'Hide Export Settings' and set 'antialias' to 0 in the export settings window that pops up.
 
 
+## To do
+
+This is my wishlist of thing I'd like to add:
+- full screen video (with the QR code in the middle)
+- use Processing to generate a QR code
+- try out how well this works with different QR versions, so bigger than 29x29
+- showing a different QR code depending on what is in view
+- use pre-made effects as overlay. I'm thinking large marquee text scrolling by.
+- colour! (HSL palette should make it possible to have colours that have high enough contrast) 
+
+
 ## Thanks
 
 I based the script on [Mirror 2](https://github.com/processing/processing-video/tree/main/examples/Capture/Mirror2) by Daniel Shiffman, where pixels from the video source are drawn as rectangles with a size based on their brightness. (See Dan's [tutorial on live video](https://processing.org/tutorials/video).)

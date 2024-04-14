@@ -37,6 +37,8 @@ This is my wishlist of thing I'd like to add:
 
 ## Thanks
 
+I had the idea for using live video in QR codes when I saw [this QR code](https://twitter.com/RepeatedFailure/status/1519353127983587330) published by someone named Repeated Failure. ([More info here](https://www.bleepingcomputer.com/news/technology/animated-qr-codes-how-do-they-work-and-how-to-create-your-own/).)
+
 I based the script on [Mirror 2](https://github.com/processing/processing-video/tree/main/examples/Capture/Mirror2) by Daniel Shiffman, where pixels from the video source are drawn as rectangles with a size based on their brightness. (See Dan's [tutorial on live video](https://processing.org/tutorials/video).)
 
 The dithering is handled by Julian Hespenheide's [dithering class for Processing](https://github.com/ndsh/dither).

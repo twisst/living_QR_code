@@ -7,7 +7,7 @@ import processing.video.*;
 Capture video;  // variable for capture device
 
 boolean showVideo = true;
-boolean showNoise = false;
+boolean showNoise = true;
 boolean showDither = true;
 boolean showFullQR = false;
 
@@ -26,7 +26,7 @@ int[] required = new int[841];
 int[] data = new int[841]; // will hold the actual QR code
 
 Dither d;
-int mode = 0;
+int mode = 2;
 PImage p;
 
 PFont f, s;
@@ -229,5 +229,6 @@ void keyPressed() {  // 1 toggle video, 2 toggle noise, 3 toggle full QR code, 4
       showDither = true;
       showVideo = true;
     }
+    println("Dither ", mode);
   }
 }

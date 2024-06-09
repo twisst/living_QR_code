@@ -3,12 +3,13 @@ A QR code that appears to be entirely composed of your webcam video — and yet 
 
 ![Aldo demonstrating the living QR code](data/livingQR_Aldo.gif?raw=true "Living QR Aldo")
 
+Live demo: https://openprocessing.org/sketch/2289887 
+
 This Processing script shows a 29x29-squares QR code where a video is shown in between the necessary squares.
 
 This works because the squares that make up the QR code actually consist of 3x3 smaller squares. Only the middle one is needed for the QR code to work.
 
-Live demo here: https://openprocessing.org/sketch/2289887 
-(that's P5js: the Processing version you see here works a bit better. Some notes on that [here](https://github.com/twisst/living_QR_code/tree/main/P5js_Living_QR_Code))
+(The Processing version works a bit better than the P5 version I made; see [my notes on that](https://github.com/twisst/living_QR_code/tree/main/P5js_Living_QR_Code).)
 
 
 ## Making the base QR code

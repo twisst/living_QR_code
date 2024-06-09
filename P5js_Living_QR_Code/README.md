@@ -1,10 +1,9 @@
-# Living QR Code in P5
+# Living QR Code: the P5 version 
 
-See the P5js version of the Living QR Code in action on https://openprocessing.org/sketch/2289887.
+See this version live in action at https://openprocessing.org/sketch/2289887.
 
-I thought it would be fun to try it in P5, but this version is definitely less smooth than the [Processing version](https://github.com/twisst/living_QR_code/) I started with. I spent quite a bit of time figuring out if I could make the script faster and the dithering better looking, but I'm just not that good at Javascript I'm afraid :-)
+I wanted to make this P5js version to be able to link to a quick demo. This version is less smooth however than the [Processing version](https://github.com/twisst/living_QR_code/) I started with. I spent quite a bit of time figuring out if I could make the script faster and the dithering better looking, but I'm just not that good at Javascript I'm afraid :-)
 
-I thought using an array to store the video frame's pixels in would make it a lot faster, but I don't think it really helps. P5's set() is supposed to be faster than directly accessing pixels in the pixel array
-The get() function has the same problem. 
+P5's set() is supposed to be faster than directly accessing pixels in the pixel array. The dithering class still uses a lot of those. I thought using an array to store the video frame's pixels in would make it a lot faster, but I don't think I got it to work as well as it could. There's also a lot of calls to the get() function and that has the same problem. It makes the framerate lower than it could be. If you know how to fix that, please do! I would welcome pull requests.
 
-Weird: video from the webcam has less contrast in P5 than the same webcam in Processing (at least on my computer, in Firefox on Mac) ¯\_(ツ)_/¯ I don't know how to fix that.
+Also weird: video from the webcam has less contrast in P5 than the same webcam in Processing (at least on my computer, in Firefox on Mac) ¯\_(ツ)_/¯ I don't know how to fix that.

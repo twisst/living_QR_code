@@ -9,7 +9,7 @@ This Processing script shows a 29x29-squares QR code where a video is shown in b
 
 This works because the squares that make up the QR code actually consist of 3x3 smaller squares. Only the middle one is needed for the QR code to work.
 
-(The Processing version works a bit better than the P5 version I made; see [my notes on that](https://github.com/twisst/living_QR_code/tree/main/P5js_Living_QR_Code).)
+(The Processing version works a bit better than the P5 version you see in the live demo; see [my notes on that](https://github.com/twisst/living_QR_code/tree/main/P5js_Living_QR_Code).)
 
 
 ## Making the base QR code

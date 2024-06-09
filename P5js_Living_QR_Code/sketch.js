@@ -1,8 +1,8 @@
 /*
- * @name Living QR code
- * @Jaap7M! Video from the user’s built-in webcam is showing in this QR code!
- * @description A QR code that appears to be entirely composed of your webcam video — and yet remains scannable!
- * <br>Read more on this project (including how to do this in Processing) on Github: <a href="https://github.com/twisst/living_QR_code"></a>
+ * Living QR code
+ * Video from the user’s built-in webcam is showing in this QR code!
+ * A QR code that appears to be entirely composed of your webcam video — and yet remains scannable!
+ * Read more on this project (including how to do this in Processing) on Github: https://github.com/twisst/living_QR_code
  */
 
 // const a = performance.now();
@@ -38,7 +38,7 @@ let mode = 1;
 let p;
 
 let f, s;
-let arrow;
+// let arrow;
 
 // loading QR module colors from a PNG
 function loadQRcode(png) {
@@ -58,12 +58,13 @@ function loadQRcode(png) {
 function preload() {
   blank = loadImage("blank_qr_code.png");
   dataImageFile = loadImage(dataImageFilename);
-  arrow = loadImage("arrow.png");
-  f = "Verdana";
+  // arrow = loadImage("arrow.png");
+  // f = "Verdana";
   s = loadFont("ka1.ttf"); // font: Karmatic arcade by Vic Fieger
 }
 
 function setup() {
+	
   createCanvas(windowWidth, windowHeight);
 
   colorMode(HSB, 255);
@@ -82,7 +83,7 @@ function setup() {
   while ((squareSize + 3) * 37 < height && (squareSize + 3) * 37 < width) {
     squareSize += 3;
   }
-  console.log("squareSize is ", squareSize);
+  // console.log("squareSize is ", squareSize);
 
   totalQRsize = squareSize * 29; // length of the sides of the whole QR code
   subsquareSize = squareSize / 3; // we divide the modules of the QR code into 9 sub-squares that have sides 1/3 of the larger square.
@@ -113,19 +114,19 @@ function draw() {
   // const k = performance.now();
   // console.log('Start draw');
 
-  // Text with an arrow
+  // Text
   fill(0);
   textFont(s, 28);
   text("You\nare\nwhat\nyou\nscan.", totalQRsize * 1.1, totalQRsize * 0.05);
-  textFont(f, 28);
-  text("Scan yourself!", totalQRsize * 1.1, totalQRsize * 0.7);
-  image(
-    arrow,
-    totalQRsize * 1.1,
-    totalQRsize * 0.7,
-    arrow.width / 2,
-    arrow.height / 2
-  );
+  // textFont(f, 28);
+  // text("Scan yourself!", totalQRsize * 1.1, totalQRsize * 0.7);
+  // image(
+  //   arrow,
+  //   totalQRsize * 1.1,
+  //   totalQRsize * 0.7,
+  //   arrow.width / 2,
+  //   arrow.height / 2
+  // );
 
 
   // CAPTURE VIDEO
@@ -147,9 +148,9 @@ function draw() {
 
     if (showVideo) { // Draw video frame (either dithered or not)
       // Begin loop for rows
-      for (let i = 1; i < 87; i++) { // 87 because that's how many columns and rows of subsquares there are
+      for (let i = 0; i < 87; i++) { // 87 because that's how many columns and rows of subsquares there are
         // Begin loop for columns
-        for (let j = 1; j < 87; j++) {
+        for (let j = 0; j < 87; j++) {
           
           // Where are we, pixel-wise, on the video frame?
           let xv = i * subsquareSize; // each square consists of 3x3 smaller squares of 4x4 pixels
@@ -234,7 +235,7 @@ function keyPressed() {  // 1 toggle video, 2 toggle noise, 3 toggle full QR cod
     showFullQR = !showFullQR;
   } else if (key == "4") {
     mode = (mode + 1) % 5; // 0 floyd_steinberg, 1 bayer, 2 atkinson, 3 random, 4 no dithering
-    console.log("Dither mode", mode);
+    // console.log("Dither mode", mode);
     if (mode == 4) {
       showDither = false; // last option is turn dithering off
     } else {

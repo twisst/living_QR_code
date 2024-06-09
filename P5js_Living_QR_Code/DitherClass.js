@@ -63,7 +63,7 @@ class Dither {
       for (let x = 0; x < 87; x++) {
         let oldpixel = this.temp[x + y * 87];
         let newpixel = this.makeBlackorWhite(oldpixel);
-        let quant_error = brightness(oldpixel) - brightness(color(newpixel));
+        let quant_error = oldpixel - brightness(color(newpixel));
 
         this.temp[x + y * 87] = newpixel;
 
@@ -119,7 +119,7 @@ class Dither {
         let oldpixel = this.temp[x + y * 87];
 
         let newpixel = this.makeBlackorWhite(oldpixel);
-        let quant_error = brightness(oldpixel) - brightness(color(newpixel));
+        let quant_error = oldpixel - brightness(color(newpixel));
 
         this.temp.push(newpixel);
         
@@ -169,7 +169,12 @@ class Dither {
   }
 
   makeBlackorWhite(pixelColor) {
-    let b = brightness(pixelColor);
+		let b = 0;
+		if (typeof pixelColor === 'number') {  // I'm mixing the ways I look up pixels in the video. Definitely needs fixing.
+			b = pixelColor;
+		} else {
+    	b = brightness(pixelColor);
+		}
     if (b > 128) {
       // Since brightness in HSB is from 0 to 255
       return 255; // White

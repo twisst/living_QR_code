@@ -7,6 +7,9 @@ This Processing script shows a 29x29-squares QR code where a video is shown in b
 
 This works because the squares that make up the QR code actually consist of 3x3 smaller squares. Only the middle one is needed for the QR code to work.
 
+Live demo here: https://openprocessing.org/sketch/2289887 
+(that's P5js: the Processing version you see here works a bit better. Some notes on that [here](https://github.com/twisst/living_QR_code/tree/main/P5js_Living_QR_Code))
+
 
 ## Making the base QR code
 
@@ -44,3 +47,4 @@ I based the script on [Mirror 2](https://github.com/processing/processing-video/
 The dithering is handled by Julian Hespenheide's [dithering class for Processing](https://github.com/ndsh/dither).
 
 Both images on this page are by Aldo Hoeben, demonstrating the living QR code. Both his amazing artworks and my living QR code were part of the [Raspberry Pi Jam](http://techni.gallery/photos-raspberry-pi-jam-the-hague/) I organised in The Hague in January 2024. Yes, the Processing script with the QR code runs on a Raspberry Pi 5!
+

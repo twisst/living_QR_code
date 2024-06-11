@@ -5,9 +5,9 @@ A QR code that appears to be entirely composed of your webcam video — and yet 
 
 Live demo: https://openprocessing.org/sketch/2289887 
 
-This Processing script shows a 29x29-squares QR code where a video is shown in between the necessary squares.
+This Processing script shows a 29x29-squares QR code where a video is shown in between the necessary squares. This works because the squares that make up the QR code actually consist of 3x3 smaller squares. Only the middle one is needed for the QR code to work.
 
-This works because the squares that make up the QR code actually consist of 3x3 smaller squares. Only the middle one is needed for the QR code to work.
+You can also watch my [demo at Hackaday Berlin 2024](https://www.youtube.com/watch?v=BG1bW7P5s44) for an explanation.
 
 (The Processing version works a bit better than the P5 version you see in the live demo; see [my notes on that](https://github.com/twisst/living_QR_code/tree/main/P5js_Living_QR_Code).)
 

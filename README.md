@@ -1,7 +1,7 @@
 # Living QR code
 A QR code that appears to be entirely composed of your webcam video — and yet remains scannable!
 
-![Aldo demonstrating the living QR code](data/livingQR_Aldo.gif?raw=true "Living QR Aldo")
+![Living QR Code](data/demo.gif?raw=true)
 
 Live demo: https://openprocessing.org/sketch/2289887 
 
@@ -47,5 +47,5 @@ I based the script on [Mirror 2](https://github.com/processing/processing-video/
 
 The dithering is handled by Julian Hespenheide's [dithering class for Processing](https://github.com/ndsh/dither).
 
-Both images on this page are by Aldo Hoeben, demonstrating the living QR code. Both his amazing artworks and my living QR code were part of the [Raspberry Pi Jam](http://techni.gallery/photos-raspberry-pi-jam-the-hague/) I organised in The Hague in January 2024. Yes, the Processing script with the QR code runs on a Raspberry Pi 5!
+The photo on this page was made by Aldo Hoeben, demonstrating the living QR code. Both his amazing artworks and my living QR code were part of the [Raspberry Pi Jam](http://techni.gallery/photos-raspberry-pi-jam-the-hague/) I organised in The Hague in January 2024. Yes, the Processing script with the QR code runs on a Raspberry Pi 5!
 
